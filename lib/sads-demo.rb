@@ -49,16 +49,44 @@ command = "help"
 while command != "quit"
 	case command
 	when "add"
-		print "Add element: "
-		add = gets.chomp
+		print "Add element (0 ... #{p.universe_size_m - 1} ): "
+		
 
-		puts "Adding #{add}"
+		begin
+			element = gets.chomp.to_i
+
+			puts "Adding #{element}"
+			p.addElement( element )
+			v.update_root_digest( element )
+
+			puts "Prover leaves: #{p.leaves}"
+			puts "Verifier digest: #{v.root_digest}"	
+		rescue => err
+			puts "Something went wrong"
+			puts err
+		end
+
+		
 
 	when "query"
-		puts "Membership query: "
-		
-		target = gets.chomp
-		puts "Query requested for: #{target}"
+		print "Membership query (Enter binary index using #{p.bits_needed_for_leaves} bits): "
+
+		begin
+
+			target = gets.chomp
+
+			puts "Query requested for: #{target}"
+
+			# TODO - Membership proof expects an index (make a public interface to expect an integer)
+
+			proof = p.get_membership_proof(target)
+			valid = v.verify_membership_proof proof
+
+			puts "Prover provided valid proof? : #{valid}"
+		rescue => err
+			puts "Something went wrong"
+			puts err
+		end
 
 	when "help"
 		puts "Choose: (add) Element, (query), (help), (quit)"
