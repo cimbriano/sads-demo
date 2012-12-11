@@ -60,13 +60,13 @@ while command != "quit"
 			v.update_root_digest( element )
 
 			puts "Prover leaves: #{p.leaves}"
-			puts "Verifier digest: #{v.root_digest}"	
+			puts "Verifier digest: #{v.root_digest}"
+			puts
 		rescue => err
 			puts "Something went wrong"
 			puts err
+			puts
 		end
-
-		
 
 	when "query"
 		print "Membership query (Enter binary index using #{p.bits_needed_for_leaves} bits): "
@@ -83,18 +83,21 @@ while command != "quit"
 			valid = v.verify_membership_proof proof
 
 			puts "Prover provided valid proof? : #{valid}"
+			puts
 		rescue => err
 			puts "Something went wrong"
 			puts err
+			puts 
 		end
 
 	when "help"
 		puts "Choose: (add) Element, (query), (help), (quit)"
+		puts
 	else
 		puts "Invalid selection"
+		puts
 	end
 		
-	print "Choose: (add) Element, (query), (help), (quit): "
+	print "Enter a command: "
 	command = gets.chomp
-		
 end
