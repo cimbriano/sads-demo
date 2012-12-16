@@ -4,6 +4,7 @@ require 'verifier'
 
 opts = {}
 
+
 opt_parser = OptionParser.new do |opt|
   opt.banner = "Usage: opt_parser COMMAND [OPTIONS]"
   opt.separator  ""
@@ -14,7 +15,7 @@ opt_parser = OptionParser.new do |opt|
   opt.separator  ""
   opt.separator  "Options"
 
-  opt.on("-k","--security-parameter PARAM", Numeric, "which environment you want server run") do |k|
+  opt.on("-k","--security-parameter PARAM", Numeric, "Security parameter") do |k|
     opts[:k] = k
   end
 
